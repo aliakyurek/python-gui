@@ -1,4 +1,4 @@
 # Example 1
-Sample code and applications showing GUI development on Python
+Simple dialog with two event handlers (textChanged and clicked)
 
 ![alt text](https://raw.githubusercontent.com/aliakyurek/python-gui/master/example1/image.png)
