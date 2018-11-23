@@ -1,0 +1,2 @@
+pyqt5>=5.11
+pyqt5-tools>=5.11
