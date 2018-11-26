@@ -1,3 +1,5 @@
+# environment
+.env
 # sublime workspace files
 *.sublime-workspace
 # Byte-compiled / optimized / DLL files
