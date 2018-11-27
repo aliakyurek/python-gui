@@ -2,14 +2,6 @@ import requests
 import os
 from requests_ntlm import HttpNtlmAuth
 
-def handleAuthentication(session):
-    if(os.environ.get('PROXY_USER') and os.environ.get('PROXY_PASS')):
-        # get rid of double \\ if exists in user name (for ex. DOMAIN\account) using unicode-escape
-        print('Enabling NTLM authentication using credentials {}:****'.format(os.environ.get('PROXY_USER').encode('ascii').decode('unicode-escape')))
-        session.auth = HttpNtlmAuth(os.environ.get('PROXY_USER').encode('ascii').decode('unicode-escape'),
-            os.environ.get('PROXY_PASS').encode('ascii').decode('unicode-escape'),
-            session)
-
 
 class MainModel:
     def __init__(self,url,local_path):
@@ -22,9 +14,17 @@ class MainModel:
     def statusChanged(self,func):
         self.cbStatusChanged = func
 
+    def handleAuthentication(self,session):
+        if(os.environ.get('PROXY_USER') and os.environ.get('PROXY_PASS')):
+            # get rid of double \\ if exists in user name (for ex. DOMAIN\account) using unicode-escape
+            print('Enabling NTLM authentication using credentials {}:****'.format(os.environ.get('PROXY_USER').encode('ascii').decode('unicode-escape')))
+            session.auth = HttpNtlmAuth(os.environ.get('PROXY_USER').encode('ascii').decode('unicode-escape'),
+            os.environ.get('PROXY_PASS').encode('ascii').decode('unicode-escape'),
+            session)        
+
     def startDownload(self):
         session = requests.Session()
-        handleAuthentication(session)
+        self.handleAuthentication(session)
 
         try:
             response = session.get(self.url, stream=True)
