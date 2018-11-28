@@ -13,3 +13,7 @@ Once the requirements are installed, you can run the app using Python 3.
 ```
 python3 main.py
 ```
+
+Notes:
+* All examples build and tested with Python3.6 on Windows
+* When installing requirements, be sure you're running the command prompt inturn pip using elevated privileges-i.e. "run as administrator"
