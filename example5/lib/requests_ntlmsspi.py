@@ -1,3 +1,5 @@
+# file copied from my repository requests-ntlm/requests_ntlm/requests_ntlmsspi.py
+      
 from sspi import ClientAuth
 from requests.auth import AuthBase
 import base64
