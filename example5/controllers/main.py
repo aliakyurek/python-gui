@@ -1,5 +1,6 @@
 import models.main
 import views.main
+from PyQt5 import QtCore
 
 class Download:
     def __init__(self):
@@ -7,8 +8,8 @@ class Download:
         self.model = models.main.Download()
 
         ###### Binding the model events to controller handlers #####
-        # self.model.bind('downloadProgressChanged', self.downloadProgressChangedHandler)
-        # self.model.bind('autoConnectChanged', self.autoConnectChangedHandler)
+        self.model.bind('downloadProgressChanged', self.downloadProgressChangedHandler)
+        self.model.bind('autoConnectChanged', self.autoConnectChangedHandler)
 
         ###### View creation #####
         self.view = views.main.Download()
@@ -16,7 +17,7 @@ class Download:
 
         ###### View initialization ####
         # must be before to prevent unnecessary triggering handlers here
-        ''' self.view.ui.isAutoConnectCb.setChecked(self.model.autoConnect)
+        self.view.ui.isAutoConnectCb.setChecked(self.model.autoConnect)
         self.view.ui.userNameLe.setText(self.model.username)
         self.view.ui.passwordLe.setText(self.model.password)
         self.view.ui.urlLe.setText(self.model.url)
@@ -26,6 +27,7 @@ class Download:
 
         self.autoConnectChangedHandler(self.model.autoConnect)
         ###### Binding the view events to the controller handler #####
+        self.view.ui.userNameLe.textChanged.connect(self.userNameChangedHandler)
         self.view.ui.passwordLe.textChanged.connect(self.passwordChangedHandler)
         self.view.ui.saveLocationLe.textChanged.connect(self.saveLocationLeChangedHandler)
         self.view.ui.urlLe.textChanged.connect(self.urlLeChangedHandler)
@@ -40,6 +42,9 @@ class Download:
         self.view.changeConnectionSettingsVisibility(state)
 
     ###### View event handlers #####
+    def userNameChangedHandler(self, text):
+        self.model.username = text
+
     def passwordChangedHandler(self, text):
         self.model.password = text
 
@@ -54,4 +59,4 @@ class Download:
 
     def isAutoConnectCbChangedHandler(self, state):
         self.model.autoConnect = True if(state == QtCore.Qt.Checked) else False
-'''
+

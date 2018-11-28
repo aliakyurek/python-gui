@@ -2,14 +2,15 @@ import sys
 import urllib
 import requests
 from requests_ntlm import HttpNtlmAuth
+from lib.requests_ntlmsspi import HttpNtlmSspiAuth
 # from lib.requests_ntlmsspi import HttpNtlmSspiAuth
 
 class Download:
     def __init__(self):
         self.__username = ''
         self.__password = ''
-        self.__url = ''
-        self.__saveLocation = ''
+        self.__url = 'http://ipv4.download.thinkbroadband.com/5MB.zip'
+        self.__saveLocation = 'c:\\download'
         self.__autoConnect = True
         self.__proxyAddress = {
             'http': None,
@@ -89,9 +90,9 @@ class Download:
 
     def handleAuthentication(self,session):
         if(self.__autoConnect):
-#            session.auth = HttpNtlmSspiAuth()
-            pass
+            session.auth = HttpNtlmSspiAuth()
         else:
+            print(self.__username,self.__password)
             session.auth = HttpNtlmAuth(self.__username,self.__password)
 
     def startDownload(self):
@@ -107,7 +108,7 @@ class Download:
 
         total_length = response.headers.get('content-length')
 
-        with open(self.local_path, "wb") as f:
+        with open(self.__saveLocation, "wb") as f:
             if total_length is None:  # no content length header
                 f.write(response.content)
                 self.report(100,100)

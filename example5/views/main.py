@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog,QFileDialog,QMessageBox
+from PyQt5.QtGui import QPalette
+from PyQt5.QtCore import Qt,QDir
 from ui.download import Ui_downloadDialog
 
 class Download(QDialog):
@@ -10,7 +12,6 @@ class Download(QDialog):
         self.setFocus()
 
 ###### event handlers #######
-'''
         self.ui.browseBtn.clicked.connect(self.browseClickedHandler)
 
     def setProgress(self, percent):
@@ -36,4 +37,3 @@ class Download(QDialog):
     def browseClickedHandler(self):
         save_file = QFileDialog.getSaveFileName(self, caption='Save file as', directory='D:\\', filter='All Files (*.*)')
         self.ui.saveLocationLe.setText(QDir.toNativeSeparators(save_file))
-'''
